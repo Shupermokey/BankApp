@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bank Login</title>
+<link rel="stylesheet" href="/css/loginPage.css">
+</head>
+<body>
+	<div class = "container">
+	<section class ="login-section">
+		<div class = "login-container">
+			<h3>Create Account</h3>
+			<p th:text="${accountCreated}"></p>
+			<form action="#" class="login-form" th:action="@{/createAccount}" method="post">
+				<input class="login-form-input" type="text" required name="username" placeholder="Username">
+				<input class="login-form-input" type="password" required name="password"placeholder="Password">
+				<input class="login-form-input" type="text" required name="email"placeholder="Email">
+				<input class="login-form-input" type="text" required name="fname"placeholder="First name">
+				<input class="login-form-input" type="text" required name="lname"placeholder="Last name">
+				<input class="login-btn" type = "submit" value="Submit">
+			</form>
+			<div>
+				<a href="/">Back</a>
+			</div>
+		</div>
+		
+	</section>
+	</div>
+	
+</body>
+</html>

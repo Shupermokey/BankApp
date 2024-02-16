@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bank Homepage</title>
+<link rel="stylesheet" href="/css/loginPage.css">
+</head>
+<body>
+	<div class = "container">
+	<nav class="nav-header">
+		<ul class="nav">
+			<li class="nav-link"><a>Home</a></li>
+			<li class="nav-link">
+				<a th:if=     "${session.username} == null">Login</a>
+				<a href="/logout" th:unless= "${session.username} == null">Logout</a>
+			</li>
+		</ul>
+	</nav>
+	<h3 th:text="${session.username}"></h3>
+	
+	<section>
+		<div>
+			
+		</div>
+	</section>
+	
+	</div>
+	
+</body>
+</html>
