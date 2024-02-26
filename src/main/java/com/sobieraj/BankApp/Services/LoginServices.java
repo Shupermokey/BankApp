@@ -4,10 +4,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.sobieraj.BankApp.Entities.Account;
-import com.sobieraj.BankApp.Repositories.AccountRepository;
+import com.sobieraj.BankApp.Entities.Customer;
+import com.sobieraj.BankApp.Repositories.CustomerRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -15,12 +16,15 @@ import jakarta.servlet.http.HttpSession;
 public class LoginServices {
 	
 	@Autowired
-	AccountRepository accountRepo;
+	CustomerRepository customerRepo;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 
 	
 	public boolean accountCreated(String username) {
-		Optional<Account> account = accountRepo.findAccountByUsername(username);
+		Optional<Customer> account = customerRepo.findAccountByUsername(username);
 		if(account.isPresent()) {
 			return true;
 		}
@@ -29,17 +33,17 @@ public class LoginServices {
 	}
 	
 	public boolean validateCredentials(String username, String password) {
-		Optional<Account> account = accountRepo.findAccountByUsername(username);
+		Optional<Customer> account = customerRepo.findAccountByUsername(username);
 		
 		if(account.isPresent()) {
-			if(BCrypt.checkpw(password, account.get().getPassword())) {
+			if(passwordEncoder.matches(password, account.get().getPassword())) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public String login(Account account, HttpSession session) {
+	public String login(Customer account, HttpSession session) {
 		if(validateCredentials(account.getUsername(), account.getPassword())) {
 			session.setAttribute("username", account.getUsername());
 			return "homePage";
@@ -50,21 +54,22 @@ public class LoginServices {
 		}
 	}
 	
-	public String createAccount(Account account) {
+	public String createAccount(Customer account) {
+		System.out.println(account.getUsername());
 		try {
 			if(accountCreated(account.getUsername())) {
 				System.out.println("Account is already created");
 				return "createAccountPage";
 			}
 			else {
-				Account newAccount = new Account();
+				Customer newAccount = new Customer();
 				newAccount.setUsername(account.getUsername());
-				String pw_hash = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
+				String pw_hash = passwordEncoder.encode(account.getPassword());
 				newAccount.setPassword(pw_hash);
 				newAccount.setEmail(account.getEmail());
 				newAccount.setFname(account.getFname());
 				newAccount.setLname(account.getLname());
-				accountRepo.save(newAccount);
+				customerRepo.save(newAccount);
 				return "loginPage";
 			}
 		}catch(Exception e) {

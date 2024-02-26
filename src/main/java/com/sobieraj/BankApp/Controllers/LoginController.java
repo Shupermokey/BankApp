@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sobieraj.BankApp.Entities.Account;
+import com.sobieraj.BankApp.Entities.Customer;
 import com.sobieraj.BankApp.Services.LoginServices;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Account account, HttpServletRequest req) {
+	public String login(Customer account, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		return loginServices.login(account, session);
 	}
@@ -40,7 +40,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/createAccount", method = RequestMethod.POST)
-	public String createAccount(Account account) {
+	public String createAccount(Customer account) {
 		return loginServices.createAccount(account);
 	}
 	

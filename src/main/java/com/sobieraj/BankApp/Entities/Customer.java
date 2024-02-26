@@ -11,6 +11,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,26 +20,28 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Account {
+@Data
+@Builder
+public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer aid;
+	private Integer customerId;
 	
 	@NotBlank(message = "Please enter a valid Username")
 	private String username;
 	
-	@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", message = "Invalid Email")
+	@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
+			message = "Invalid Email")
 	private String email;
 	
 	@NotEmpty(message = "Please enter a valid password")
 	private String password;
 	private String fname;
 	private String lname;
-	
-	//private Date dob;
+	private String role;
+	private Date create_date;
+	private String number;
 	@Override
 	public String toString() {
 		return "Account [username=" + username + ", password=" + password + "]";
