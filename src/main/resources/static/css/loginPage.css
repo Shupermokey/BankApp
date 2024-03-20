@@ -1,23 +1,41 @@
 @charset "ISO-8859-1";
+:root {
+	--background-color: #222831;
+	--input-color: #76ABAE;
+	--text-color: #EEEEEE;
+	--gold-color: #ECB159;
+}
+
+body {
+		background-color: var(--background-color);
+}
 
 .container {
 	max-width: 1200px;
-	margin:auto;
+	margin: auto;
+
 }
 
 .nav-header {
-	margin:auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid black;
 }
 
-ul {
+.nav-header ul {
 	list-style: none;
 }
+
+.nav-logo {
+	width: 135px;
+	height: 100px;
+}
+
 .nav {
-	margin:auto;
 	display: flex;
-	justify-content: center;
+	justify-content: between;
 	align-items: center;
-	margin-bottom: 50px;
 }
 
 .nav-link {
@@ -28,42 +46,123 @@ ul {
 }
 
 .nav-link:hover {
-	background-color: #ff8080;
+	background-color:var(--input-color);
 }
 
 .login-section {
 	display: flex;
 	justify-content: center;
 	max-width: 1200px;
-
 }
+
 .login-container {
 	display: flex;
-	flex-direction:column;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: start;
 	align-items: center;
 	height: 600px;
 	width: 500px;
 	border: 1px solid black;
 	border-radius: 10px;
-	background-color: #ff8080;
+	box-shadow: 3px 3px 80px rgba(0,0,0,0.3);
+	background-color:var(--input-color);
+	padding-top:40px;
+	
+}
+.login-header {
+	color: var(--gold-color);
+	background-color: var(--background-color);
+	width: 200px;
+	height: 35px;
+	text-align:center;
+	margin:auto;
+	border-radius: 5px 30px 5px 30px;
+	
 
 }
-.login-form{
+.login-info-container {
+	height: 400px;
+	width:300px;
+	margin: auto;
+
+}
+.login-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
 }
 
 .login-form-input {
-	padding: 10px;
-	margin-bottom: 10px;
-	background-color: rgba(255,128,128,0.3);
+	padding: 12px;
+	margin-bottom: 15px;
+	background-color: rgba(255, 128, 128, 0.3);
+	border: 1px solid black;
 	border-radius: 10px;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+	width:100%;
+	color: var(--text-input);
 }
 
 .login-btn {
 	align-self: flex-end;
+	text-decoration: none;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 5px;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+	background-color: var(--input-color);
+	color: var(--text-color);
+	
 }
 
+.support-btn-container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.login-support-btn {
+	text-decoration: none;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 0 8px 0 8px;
+	margin: 5px;
+	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+	color: var(--text-color);
+}
+
+.deposit-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	height: 300px;
+	width: 500px;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 3px 3px 80px rgba(0,0,0,0.3);
+	background-color: var(--input-color);
+	padding-top:40px;
+}
+
+.create-bank-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	height: 300px;
+	width: 400px;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 3px 3px 80px rgba(0,0,0,0.3);
+	background-color: var(--input-color);
+	padding-top:40px;
+}
+
+.bank-select-option {
+	width:300px;
+	text-align: center;
+}

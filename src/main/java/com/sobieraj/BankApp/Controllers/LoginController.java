@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.sobieraj.BankApp.Entities.Customer;
 import com.sobieraj.BankApp.Services.LoginServices;
@@ -24,14 +25,19 @@ public class LoginController {
 
 	
 	@GetMapping("/")
-	public String loginPage(Model m) {
+	public String loginPage() {
 		return "loginPage";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Customer account, HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		return loginServices.login(account, session);
+	@PostMapping("/logins")
+	public String login(@ModelAttribute("customer") Customer customer, HttpSession session) {
+
+		return loginServices.login(customer, session);
+	}
+	
+	@GetMapping("/homePage")
+	public String homePage() {
+		return "homePage";
 	}
 	
 	@RequestMapping(value="/createAccount", method = RequestMethod.GET)
@@ -40,14 +46,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/createAccount", method = RequestMethod.POST)
-	public String createAccount(Customer account) {
-		return loginServices.createAccount(account);
+	public String createAccount(Customer customer) {
+		return loginServices.createAccount(customer);
 	}
 	
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		session.invalidate();
-		return "loginPage";
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		return "accessDenied";
 	}
+
 }

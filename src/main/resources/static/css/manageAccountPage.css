@@ -1,0 +1,118 @@
+
+* {
+	box-sizing: border-box;
+	margin:0;
+}
+
+.manage-container {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.manager-box {
+	margin: 30px;
+	width: 400px;
+	padding: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	box-shadow: 6px 6px 20px rgba(0,0,0, 0.3);
+	display:flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	background-color:var(--input-color);
+}
+
+.manager-box-account {
+	display:flex;
+	justify-content: space-between;
+	width:100%;
+	padding: 10px;
+	font-size:20px;
+	margin-bottom: 20px;
+}
+
+.manager-box-amount {
+	border: 1px solid black;
+	width: 80%;
+	margin:5px;
+	padding-left: 15px;
+	border-radius: 5px;
+	box-shadow: 6px 6px 20px rgba(0,0,0, 0.3);
+}
+
+.manager-box-amount:hover {
+	background-color: var(--text-color);
+}
+
+.bankOptions {
+	display:flex;
+	justify-content: space-between;
+	align-content: center;
+	width: 400px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.bankOptions a {
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: #c0c0c0;
+	padding: 10px;
+}
+
+.transaction-list {
+	border: 1px solid black;
+	width: 80%;
+	margin:5px;
+	padding: 5px;
+	padding-left: 15px;
+	border-radius: 5px;
+	box-shadow: 6px 6px 20px rgba(0,0,0, 0.3);
+}
+
+.transaction-value {
+	width:100%;
+	background-color: rgba(0,0,0,0.0);
+	border: none;
+	cursor: default;
+}
+
+.transaction-value:focus {
+	outline:none;
+}
+
+.transaction-list:hover {
+	background-color:white;
+}
+
+.transaction-details {
+	display:flex;
+	width: 100%;
+	flex-direction:column;
+	margin:auto;
+}
+
+.filter-container {
+	margin-top: 10px;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color:var(--input-color);
+	width: 400px;
+	height: 80px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
+	box-shadow: 6px 6px 20px rgba(0,0,0, 0.3);
+}
+
+.filter-options-container {
+	margin-top: 10px;
+	width: 100%;
+	display:flex;
+	justify-content: space-around;
+}

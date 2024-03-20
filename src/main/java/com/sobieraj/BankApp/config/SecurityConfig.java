@@ -1,55 +1,52 @@
 package com.sobieraj.BankApp.config;
-
-import java.util.Collections;
-
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
-import jakarta.servlet.http.HttpServletRequest;
+
 
 @Configuration
 public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		
-		http.cors().configurationSource(new CorsConfigurationSource() {
-			
-			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-				CorsConfiguration config = new CorsConfiguration();
-				config.setAllowedOrigins(Collections.singletonList("http://localhost:9090"));
-				config.setAllowedMethods(Collections.singletonList("*"));
-				config.setAllowCredentials(true);
-				config.setAllowedHeaders(Collections.singletonList("*"));
-				config.setMaxAge(3600L);
-				return config;
-			}
-		})
-		.and()
-		.csrf().disable()
-		.authorizeHttpRequests()
-		.requestMatchers(HttpMethod.GET, "/", "/createAccount").permitAll()
-		.requestMatchers(HttpMethod.POST, "/createAccount").authenticated()
-		.requestMatchers("/css/**","/js/**","/contact" ).permitAll()
-		.and().formLogin()
-		.and().httpBasic();
+
+		http
+		.csrf(csrf -> csrf.disable())
+		.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/templates/**" , "/css/**","/js/**", "/images/**" ).permitAll()
+				.requestMatchers(HttpMethod.GET, "/",
+						"/createAccount",
+						"/forgotPassword",
+						"/createBankAccount",
+						"/deposit"
+						,"/deleteAccount",
+						"/deleteAccount/**",
+						"/openCreditCard",
+						"/manageCreditCards",
+						"/manageTransaction",
+						"/homePage").permitAll()
+				.requestMatchers(HttpMethod.POST, "/logins").permitAll()
+				.requestMatchers(HttpMethod.POST,"/createAccount",
+						"/openCreditCard",
+						"/createBankAccount",
+						"/manageAccount", 
+						"/manageTransaction",
+						"/depositAmount").permitAll()
+				)
+		.formLogin(form -> form.loginPage("/").permitAll())
+		.logout(logout -> logout.permitAll())
+		.exceptionHandling(configurer -> 
+				configurer.accessDeniedPage("/access-denied"))
+		.httpBasic();
 		
 		return http.build();
 		
@@ -73,10 +70,10 @@ public class SecurityConfig {
 //		return new InMemoryUserDetailsManager(admin,user);
 //	}
 	
-//	@Bean
-//	public UserDetailsService userDetailsService(DataSource datasource) {
-//		return new JdbcUserDetailsManager(datasource);
-//	}
+	@Bean
+	public UserDetailsService userDetailsService(DataSource datasource) {
+		return new JdbcUserDetailsManager(datasource);
+	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {

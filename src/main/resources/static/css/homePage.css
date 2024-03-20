@@ -1,0 +1,88 @@
+:root {
+	--background-color: #222831;
+	--input-color: #76ABAE;
+	--text-color: #EEEEEE;
+	--gold-color: #ECB159;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.nav-header {
+	background-color: var(--input-color);
+	margin-bottom: 10px;
+	border: 1px solid white;
+}
+
+.bankAccounts {
+	display:flex;
+	flex-direction: column;
+	border: 1px solid black;
+	border-radius: 10px;
+	max-width: 400px;
+	padding: 10px;
+	margin: 10px;
+	text-decoration:none;
+	box-shadow: 5px 5px 5px rgba(0,0,0, 0.7);
+}
+
+.bankAccounts:hover {
+	background-color: var(--text-color);
+}
+
+
+.bankAccounts-card-header {
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.options-container {
+	height: 100px;
+	width: 400px;
+	margin-top: 20px;
+	background-color: var(--input-color);
+}
+.options-container h3 {
+	margin: 0 30px 0 0;
+}
+
+.account-options {
+	display:flex;
+	justify-content: start;
+
+}
+
+.account-options ul {
+	width: 200px;
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+
+.account-options ul li {
+	padding: 5px;
+	margin: 5px;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+	border: 1px solid black;
+}
+
+.account-options ul li a {
+	text-decoration: none;
+
+}
+
+.body-container {
+	background-color: var(--input-color);
+	padding: 10px;
+	border: 1px solid white;
+	border-radius: 15px;
+}
+.accounts-container {
+	background-color: var(--input-color);
+}
+
+.credit-cards-container {
+	background-color: var(--input-color);
+}

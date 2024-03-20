@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bank Login</title>
+<link rel="stylesheet" href="/css/loginPage.css">
+<link rel="stylesheet" href="/css/manageAccountPage.css">
+</head>
+<body>
+	<div class="container">
+		<div class="manage-container">
+<!-- 			<div class="bankOptions">
+				<a>Transfer</a> 
+				<form th:action="@{/deposit}" th:object="${bankAccount}">
+					<input type="hidden" name="accountId" th:value="${bankAccount.accountId}" />
+					<input type="Submit" value="Deposit" />
+				</form>
+			</div> -->
+			<div class="manager-box">
+				<div class="manager-box-account">
+					<!-- <div th:text="'Owed: ' +${session.creditCardsTransactions}"></div> -->
+				</div>
+				<div class="manager-box-amount"
+					th:each="trans : ${session.creditCardsTransactions}">
+					<p th:text="${trans.transactionAmount}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

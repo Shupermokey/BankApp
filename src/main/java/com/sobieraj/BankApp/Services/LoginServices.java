@@ -21,10 +21,15 @@ public class LoginServices {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	BankAccountService bankAccountService;
+	
+	@Autowired
+	TransactionService transactionService;
 
 	
 	public boolean accountCreated(String username) {
-		Optional<Customer> account = customerRepo.findAccountByUsername(username);
+		Optional<Customer> account = customerRepo.findCustomerByUsername(username);
 		if(account.isPresent()) {
 			return true;
 		}
@@ -33,7 +38,7 @@ public class LoginServices {
 	}
 	
 	public boolean validateCredentials(String username, String password) {
-		Optional<Customer> account = customerRepo.findAccountByUsername(username);
+		Optional<Customer> account = customerRepo.findCustomerByUsername(username);
 		
 		if(account.isPresent()) {
 			if(passwordEncoder.matches(password, account.get().getPassword())) {
@@ -43,32 +48,32 @@ public class LoginServices {
 		return false;
 	}
 	
+	//Set the username, bank accounts, and credit cards to the session
 	public String login(Customer account, HttpSession session) {
+		Optional<Customer> customer = customerRepo.findCustomerByUsername(account.getUsername());
 		if(validateCredentials(account.getUsername(), account.getPassword())) {
 			session.setAttribute("username", account.getUsername());
+			session.setAttribute("bankAccounts", bankAccountService.getCustomerAccounts(account.getUsername()));
+			session.setAttribute("creditCards", customer.get().getCreditCards());
 			return "homePage";
 		}
 		else {
-			
 			return "loginPage";
 		}
 	}
 	
-	public String createAccount(Customer account) {
-		System.out.println(account.getUsername());
+	public String createAccount(Customer customer) {
 		try {
-			if(accountCreated(account.getUsername())) {
+			if(accountCreated(customer.getUsername())) {
 				System.out.println("Account is already created");
 				return "createAccountPage";
 			}
 			else {
 				Customer newAccount = new Customer();
-				newAccount.setUsername(account.getUsername());
-				String pw_hash = passwordEncoder.encode(account.getPassword());
+				newAccount.setUsername(customer.getUsername());
+				String pw_hash = passwordEncoder.encode(customer.getPassword());
 				newAccount.setPassword(pw_hash);
-				newAccount.setEmail(account.getEmail());
-				newAccount.setFname(account.getFname());
-				newAccount.setLname(account.getLname());
+				newAccount.setEmail(customer.getEmail());
 				customerRepo.save(newAccount);
 				return "loginPage";
 			}

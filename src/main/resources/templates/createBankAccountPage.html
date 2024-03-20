@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bank Login</title>
+<link rel="stylesheet" href="/css/loginPage.css">
+</head>
+<body>
+	<div class = "container">
+	<section class ="login-section">
+		<div class = "create-bank-container">
+			<h3>Create Bank Account</h3>
+			<form action="#" class="login-form" th:object="${bankAccount}" th:action="@{/createBankAccount}" method="post">
+				<select class= "login-form-input" th:field="*{type}">
+					<option th:value="Checking">Checking</option>
+					<option th:value="Saving">Saving</option>
+				</select>
+				<input class= "login-form-input" name="balance" th:value="${bankAccount.balance}" />
+				
+				<div>
+				<a class= "login-btn" href="/homePage">Back</a>
+				<input class="login-btn" type = "submit" value="Submit">
+			</div>
+			</form>
+			
+		</div>
+		
+	</section>
+	</div>
+	
+</body>
+</html>

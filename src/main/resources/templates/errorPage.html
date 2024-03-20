@@ -4,31 +4,46 @@
 <meta charset="ISO-8859-1">
 <title>Bank Login</title>
 <link rel="stylesheet" href="/css/loginPage.css">
+<link rel="stylesheet" href="/css/manageAccountPage.css">
 </head>
 <body>
-	<div class = "container">
-	<nav class="nav-header">
-		<ul class="nav">
-			<li class="nav-link"><a>Home</a></li>
-			<li class="nav-link"><a>Login</a></li>
-		</ul>
-	</nav>
-	
-	<section class ="login-section">
-		<div class = "login-container">
-			<form action="#" class="login-form" th:action="@{/login}" method="post">
-				<input class="login-form-input" type="text" required name="username" placeholder="Username">
-				<input class="login-form-input" type="password" required name="password"placeholder="Password">
-				<input class="login-btn" type = "submit" value="Submit">
-			</form>
-			<div>
-				<a href="">Create Account</a>
-				<a href="">Forgot Password</a>
+	<div class="container">
+		<div class="manage-container">
+		
+			<div class="bankOptions">
+				<a>Transfer</a> 
+				<form th:action="@{/deposit}" th:object="${session.bankAccount}">
+					<input type="hidden" name="accountId" th:value="${session.bankAccount.accountId}" />
+					<input type="Submit" value="Deposit" />
+				</form>
+			</div>
+			
+			<div class="filter-container">
+				<h3>Filter Options</h3>
+				<div class="filter-options-container">
+					<button>Highest</button>
+					<button>Lowest</button>
+					<button>Date</button>
+				</div>
+			</div>
+			
+			<div class="manager-box">
+			
+				<div class="manager-box-account">
+					<div th:text="${session.bankAccount.type}"></div>
+					<div th:text="'$ '+${session.bankAccount.balance}"></div>
+				</div>
+				
+				<form th:action="@{/manageTransaction}" class="transaction-list" th:object="${transaction}" method="post"
+					th:each="trans : ${session.bankTransactions}">
+					<input type="hidden" name="tranId" th:value="${trans.tranId}">
+					<input type="hidden" name="accountNumber" th:value="${trans.accountNumber}">
+					<input readonly class="transaction-value" name="transactionAmount" th:value="${trans.transactionAmount}"/>
+				</form>
+				
 			</div>
 		</div>
-		
-	</section>
 	</div>
-	
+ <script src="/js/homePage.js"></script> 
 </body>
 </html>

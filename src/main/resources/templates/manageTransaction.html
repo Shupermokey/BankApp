@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bank Login</title>
+<link rel="stylesheet" href="/css/loginPage.css">
+<link rel="stylesheet" href="/css/manageAccountPage.css">
+</head>
+<body>
+	<div class="container">
+		<div class="manage-container">
+
+			<div class="manager-box">
+				<div class="manager-box-account">
+					<div>Transaction Details</div>
+				</div>
+				<div class="transaction-details" th:each="tranDetails : ${session.transactionDetails}">
+					<p th:text="'Item name:      '+${tranDetails.itemName}"></p>
+					<p th:text="'Date purchased: '+${tranDetails.date}"></p>
+					<p th:text="'Cost of item :  '+${tranDetails.cost}"></p>
+				</div>
+				
+			</div>
+			<a th:href="@{/homePage}">Back</a>
+		</div>
+
+	</div>
+ <script src="/js/homePage.js"></script> 
+</body>
+</html>

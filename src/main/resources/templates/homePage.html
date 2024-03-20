@@ -4,27 +4,71 @@
 <meta charset="ISO-8859-1">
 <title>Bank Homepage</title>
 <link rel="stylesheet" href="/css/loginPage.css">
+<link rel="stylesheet" href="/css/homePage.css">
 </head>
 <body>
-	<div class = "container">
-	<nav class="nav-header">
-		<ul class="nav">
-			<li class="nav-link"><a>Home</a></li>
-			<li class="nav-link">
-				<a th:if=     "${session.username} == null">Login</a>
-				<a href="/logout" th:unless= "${session.username} == null">Logout</a>
-			</li>
-		</ul>
-	</nav>
-	<h3 th:text="${session.username}"></h3>
-	
-	<section>
-		<div>
-			
+	<div class="container">
+
+		<nav class="nav-header">
+			<img alt="Bank Logo" th:src="@{/images/Logo.png}" class="nav-logo">
+
+			<ul class="nav">
+				<li th:text="${username}"></li>
+				<li class="nav-link"><a>Home</a></li>
+				<li class="nav-link"><a href="/logout">Logout</a></li>
+			</ul>
+		</nav>
+
+		<div class="body-container">
+			<!-- Options section -->
+			<div class="options-container">
+				<h3>Options</h3>
+				<div class="account-options">
+					<ul>
+						<li><a href="/createBankAccount">Open Bank Account</a></li>
+						<li><a href="/openCreditCard">Open Credit Card</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Accounts section -->
+			<section class="accounts-container">
+				<h3 class="account-options">Accounts</h3>
+				<form th:action="@{/manageAccount}" class="bankAccounts"
+					th:each="bankAccount : ${session.bankAccounts}"
+					th:object="${account}" method="POST">
+					<div class="bankAccounts-card-header">
+						<div th:text="${bankAccount.type}"></div>
+						<a th:href="@{/deleteAccount/{id}(id=${bankAccount.accountId})}">X</a>
+					</div>
+					<p th:text="'$ '+ ${bankAccount.balance}"></p>
+					<input type="hidden" name="accountId"
+						th:value="${bankAccount.accountId}" /> <input type="hidden"
+						name="type" th:value="${bankAccount.type}" /> <input
+						type="hidden" name="balance" th:value="${bankAccount.balance}" />
+				</form>
+			</section>
+
+
+			<!-- Credit Card section -->
+			<section class="credit-cards-container">
+				<h3>Credit Cards</h3>
+				<form th:action="@{/manageCreditCards}" class="bankAccounts"
+					th:each="creditCard : ${session.creditCards}"
+					th:object="${creditCards}" method="Get">
+					<div class="bankAccounts-card-header">
+						<div th:text="${creditCard.creditCardNumber}"></div>
+						<div th:text="${creditCard.amount}"></div>
+					</div>
+					<div th:text="'$'+${creditCard.owed}"></div>
+					<input type="hidden" name="ccid" th:value="${creditCard.ccid}" />
+				</form>
+			</section>
+
+
 		</div>
-	</section>
-	
+
 	</div>
-	
+	<script src="/js/homePage.js"></script>
 </body>
 </html>
