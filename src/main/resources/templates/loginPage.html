@@ -8,28 +8,27 @@
 </head>
 <body>
 	<div class="container">
-
 		<section class="login-section">
+		
 			<div class="login-container">
 				<h2 class="login-header">Login</h2>
-				<h1 class="text-2x1 text-red-600 text-center">Hello TailWind CSS</h1>
+
 				<div class="login-info-container">
-					<form action="#" class="login-form" th:action="@{/logins}"
-						th:object="${customer}" method="post">
-						<input class="login-form-input" type="text" required
-							name="username" placeholder="Username"> <input
-							class="login-form-input" type="password" required name="password"
-							placeholder="Password"> <input class="login-btn"
-							type="submit" value="Submit">
+				
+					<form action="#" class="login-form" th:action="@{/logins}" th:object="${customer}" method="post">
+						<input class="login-form-input" type="text" required name="username" placeholder="Username"> 
+						<input class="login-form-input" type="password" required name="password" placeholder="Password"> 
+						<input class="login-btn" type="submit" value="Submit">
 					</form>
+					
 					<div class="support-btn-container">
-						<a class="login-support-btn" href="/createAccount">Create
-							Account</a> <a class="login-support-btn" href="/forgotPassword">Forgot
-							Password</a>
+						<a class="login-support-btn" href="/createAccount">Create Account</a> 
+						<a class="login-support-btn" href="/forgotPassword">Forgot Password</a>
 					</div>
+					
 				</div>
 			</div>
-
+			
 		</section>
 	</div>
 
